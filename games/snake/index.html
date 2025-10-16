@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Snake — Clásicos</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <a class="back" href="../../index.html">← Volver</a>
+    <h1>🐍 Snake</h1>
+  </header>
+  <main>
+    <canvas id="game" width="480" height="480" aria-label="Tablero Snake"></canvas>
+    <aside class="panel">
+      <div class="row"><strong>Puntaje:</strong> <span id="score">0</span></div>
+      <div class="row"><strong>Máximo:</strong> <span id="best">0</span></div>
+      <div class="row">
+        <label>Velocidad:
+          <select id="speed">
+            <option value="120">Fácil</option>
+            <option value="90" selected>Normal</option>
+            <option value="60">Rápida</option>
+            <option value="40">Insana</option>
+          </select>
+        </label>
+      </div>
+      <div class="row">
+        <button id="start" class="btn">▶ Iniciar</button>
+        <button id="pause" class="btn ghost">⏸ Pausa</button>
+        <button id="reset" class="btn ghost">↺ Reiniciar</button>
+      </div>
+      <p class="hint">Controles: Flechas o W/A/S/D. En móvil, usa los botones.</p>
+      <div class="mobile">
+        <button data-k="ArrowUp">▲</button>
+        <div>
+          <button data-k="ArrowLeft">◀</button>
+          <button data-k="ArrowDown">▼</button>
+          <button data-k="ArrowRight">▶</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+  <script src="script.js" defer></script>
+</body>
+</html>

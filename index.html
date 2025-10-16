@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Juegos Clásicos & Retro</title>
+  <meta name="description" content="Colección moderna de juegos clásicos y retro hechos en HTML, CSS y JavaScript." />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>🎮 Juegos Clásicos & Retro</h1>
+      <nav>
+        <a href="#lista">Lista</a>
+        <a href="#como">Cómo jugar</a>
+        <a href="#creditos">Créditos</a>
+        <button id="themeToggle" class="btn">🌓 Tema</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h2>Arcade vibes, código moderno</h2>
+      <p>Explora remakes 100% web: rápidos, accesibles y listos para móvil.</p>
+      <a class="cta" href="#lista">Empezar</a>
+    </div>
+  </section>
+
+  <main class="container">
+    <section id="lista" class="grid">
+      <article class="card">
+        <img src="https://picsum.photos/seed/snake/800/500" alt="Snake clásico" loading="lazy">
+        <div class="card-body">
+          <h3>Snake</h3>
+          <p>Come, crece y evita morderte la cola. Control con flechas o W/A/S/D.</p>
+          <a class="btn" href="games/snake/index.html">Jugar</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://picsum.photos/seed/tictactoe/800/500" alt="Tic Tac Toe" loading="lazy">
+        <div class="card-body">
+          <h3>Tic Tac Toe</h3>
+          <p>3 en raya con IA básica (bloqueo y victoria). ¡Reta a la máquina!</p>
+          <a class="btn" href="games/tictactoe/index.html">Jugar</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://picsum.photos/seed/breakout/800/500" alt="Breakout / Arkanoid" loading="lazy">
+        <div class="card-body">
+          <h3>Breakout</h3>
+          <p>Rompe ladrillos con precisión. Próximamente versión jugable.</p>
+          <a class="btn ghost" href="games/breakout/index.html">Vista previa</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://picsum.photos/seed/pong/800/500" alt="Pong" loading="lazy">
+        <div class="card-body">
+          <h3>Pong</h3>
+          <p>El duelo de paletas definitivo (1-2 jugadores). Próximamente.</p>
+          <a class="btn ghost" href="games/pong/index.html">Vista previa</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://picsum.photos/seed/memory/800/500" alt="Memorama" loading="lazy">
+        <div class="card-body">
+          <h3>Memorama</h3>
+          <p>Encuentra las parejas en el menor tiempo. Próximamente.</p>
+          <a class="btn ghost" href="games/memory/index.html">Vista previa</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://picsum.photos/seed/minesweeper/800/500" alt="Buscaminas" loading="lazy">
+        <div class="card-body">
+          <h3>Buscaminas</h3>
+          <p>Evita minas y usa la lógica para despejar el tablero. Próximamente.</p>
+          <a class="btn ghost" href="games/minesweeper/index.html">Vista previa</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://picsum.photos/seed/simon/800/500" alt="Simon Dice" loading="lazy">
+        <div class="card-body">
+          <h3>Simon Dice</h3>
+          <p>Memoriza la secuencia de luces y sonidos. Próximamente.</p>
+          <a class="btn ghost" href="games/simon/index.html">Vista previa</a>
+        </div>
+      </article>
+    </section>
+
+    <section id="como" class="how">
+      <h2>Cómo jugar</h2>
+      <ul>
+        <li>📱 Móvil: controles táctiles y deslizamientos cuando aplique.</li>
+        <li>⌨️ Escritorio: flechas, WASD, clic o barra espaciadora según el juego.</li>
+        <li>🧭 Accesibilidad: foco visible, navegación por teclado y alto contraste.</li>
+      </ul>
+    </section>
+
+    <section id="creditos" class="credits">
+      <h2>Créditos</h2>
+      <p>Código base por <strong>Daniel + IA</strong>. Imágenes de muestra: <em>Picsum</em>. Licencias libres/educativas.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© {year} Retro Classics. Hecho con HTML + CSS + JS.</small>
+    </div>
+  </footer>
+
+  <script>document.currentScript.outerHTML = document.currentScript.outerHTML.replace("{year}", new Date().getFullYear());</script>
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
