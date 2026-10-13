@@ -251,8 +251,15 @@ launchGame.addEventListener("click", ()=>{
     storageKey:"ignition"
   });
 
-  // Force Wine's built-in DirectDraw/WinMM instead of repack wrappers.
-  const runtimeUrl = `../runtime/boxedwine/boxedwine.html?${params.toString()}&env=%22WINEDLLOVERRIDES:winmm=b;ddraw=b%22`;
+  // BoxedWine includes cnc-ddraw specifically for legacy DirectDraw games.
+  // Point the override at Ignition's mounted working directory so BoxedWine
+  // injects its ddraw.dll + ddraw.ini there. Keep WinMM built-in for now to
+  // avoid the repack's modern VCRUNTIME dependency.
+  const appDir = "/home/username/.wine/dosdevices/c:/files";
+  const runtimeUrl =
+    `../runtime/boxedwine/boxedwine.html?${params.toString()}` +
+    `&ddrawOverride=%22${encodeURIComponent(appDir)}%22` +
+    `&env=%22WINEDLLOVERRIDES:winmm=b%22`;
 
   stagePlaceholder.hidden=true;
   gameFrame.hidden=false;
