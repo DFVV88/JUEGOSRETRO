@@ -20,8 +20,8 @@ const audioQualityStatus = document.querySelector("#audioQualityStatus");
 
 function updateAudioQualityStatus(){
   if(!audioQualityStatus) return;
-  audioQualityStatus.textContent = "Modo compatible";
-  audioQualityStatus.title = "BoxedWine usa la ruta de audio compatible que funcionaba antes.";
+  audioQualityStatus.textContent = "Desactivado temporalmente";
+  audioQualityStatus.title = "Audio desactivado temporalmente para evitar la excepción que ocurre en el primer clic.";
 }
 
 updateAudioQualityStatus();
@@ -254,7 +254,7 @@ launchGame.addEventListener("click", ()=>{
     p:"Ign_d3d.exe",
     storage:"memory",
     resolution:"640x480",
-    sound:"true",
+    sound:"false",
     audioFreq:"22050",
     bpp:"16",
     storageKey:"ignition"
