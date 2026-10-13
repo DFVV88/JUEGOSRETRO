@@ -5,11 +5,11 @@ const catalog = [
     year: 1997,
     platform: "Windows",
     engine: "BoxedWine",
-    status: "integrating",
-    statusText: "EN INTEGRACIÓN",
+    status: "playable",
+    statusText: "LISTO PARA PROBAR",
     monogram: "IGN",
     colors: ["#101c42", "#742f77", "#ff3bd4"],
-    description: "Carreras arcade isométricas. Estamos preparando su ejecución directa en Chrome."
+    description: "Carreras arcade isométricas. Usa tu copia local del juego y ejecútala en Chrome con BoxedWine.",\n    playUrl: "play/ignition.html"
   },
   {
     id: "freedoom",
@@ -114,6 +114,11 @@ function render(){
     const playable = game.status === "playable";
     play.disabled = !playable;
     play.textContent = playable ? "JUGAR" : game.status === "integrating" ? "EN INTEGRACIÓN" : "PRÓXIMAMENTE";
+    if(playable && game.playUrl){
+      play.addEventListener("click", () => {
+        window.location.href = game.playUrl;
+      });
+    }
 
     node.querySelector(".details-button").addEventListener("click", () => {
       card.animate(
