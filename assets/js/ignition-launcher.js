@@ -272,6 +272,23 @@ gameFrame.addEventListener("load", ()=>{
   if(gameFrame.src && !gameFrame.src.endsWith("about:blank")){
     runtimeStatus.textContent="Ignition cargado en BoxedWine";
     runtimeLight.className="runtime-light ready";
+
+    const focusInsideGame=()=>{
+      try{
+        gameFrame.focus();
+        const win=gameFrame.contentWindow;
+        const doc=gameFrame.contentDocument;
+        if(win) win.focus();
+        const canvas=doc && doc.getElementById("canvas");
+        if(canvas){
+          canvas.tabIndex=0;
+          canvas.focus({preventScroll:true});
+        }
+      }catch(_){}
+    };
+
+    setTimeout(focusInsideGame,1200);
+    setTimeout(focusInsideGame,3000);
   }
 });
 
