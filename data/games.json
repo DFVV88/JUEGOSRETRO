@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "note": "Este catálogo solo debe incluir juegos con distribución legal permitida.",
+  "games": [
+    {
+      "id": "ignition",
+      "title": "Ignition",
+      "status": "integration",
+      "distribution": "user-supplied-files-required",
+      "engine": "boxedwine"
+    },
+    {
+      "id": "freedoom",
+      "title": "Freedoom",
+      "status": "planned",
+      "distribution": "open-source",
+      "engine": "wasm"
+    },
+    {
+      "id": "browserquest",
+      "title": "BrowserQuest",
+      "status": "planned",
+      "distribution": "open-source",
+      "engine": "browser-native"
+    },
+    {
+      "id": "opensurge",
+      "title": "Open Surge",
+      "status": "planned",
+      "distribution": "open-source",
+      "engine": "wasm"
+    }
+  ]
+}
