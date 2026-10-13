@@ -39,10 +39,11 @@
       <div class="launcher-copy">
         <span class="launcher-step">01</span>
         <div>
-          <h2>Conecta tu copia del juego</h2>
+          <h2>Conecta tu copia una sola vez</h2>
           <p>
-            Selecciona el ZIP de Ignition que ya tienes. El archivo se guarda solamente
-            en el almacenamiento local de este navegador y no se sube a GitHub ni al servidor.
+            La primera vez seleccionas el ZIP de Ignition. Después JUEGOS RETRO lo recuerda
+            dentro de este mismo Chrome y podrás volver directamente a JUGAR sin subirlo otra vez.
+            El archivo no se envía a GitHub ni al servidor.
           </p>
         </div>
       </div>
@@ -63,6 +64,7 @@
         <strong>Privacidad:</strong>
         <span>tu ZIP permanece en Chrome mediante IndexedDB. JUEGOS RETRO solo sirve el emulador.</span>
       </div>
+      <p id="storageStatus" class="storage-status">Comprobando permanencia del almacenamiento…</p>
     </section>
 
     <section class="runtime-panel">
@@ -78,7 +80,7 @@
         <div class="stage-placeholder" id="stagePlaceholder">
           <div class="ignition-mark">IGN</div>
           <h3>LISTO PARA ARRANCAR</h3>
-          <p>Selecciona tu ZIP y pulsa JUGAR IGNITION.</p>
+          <p>La primera vez selecciona tu ZIP. Las siguientes, solo pulsa JUGAR IGNITION.</p>
         </div>
         <iframe
           id="gameFrame"
