@@ -105,3 +105,38 @@
   .key-grid{grid-template-columns:1fr}
   .controls-tip{display:block}
 }
+
+.quick-controls{
+  margin-top:18px;padding:26px;border:1px solid rgba(45,247,255,.14);border-radius:22px;
+  background:linear-gradient(145deg,rgba(9,20,43,.82),rgba(6,9,22,.94));box-shadow:var(--shadow)
+}
+.quick-controls-head{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:22px}
+.quick-controls-head h2{margin:8px 0 0;font:700 25px Orbitron,sans-serif}
+.quick-controls-head p{max-width:520px;margin:0;color:#8796bb;font-size:12px;line-height:1.6}
+.quick-pad{display:flex;align-items:center;justify-content:center;gap:42px;flex-wrap:wrap}
+.dpad{display:grid;grid-template-columns:repeat(3,88px);grid-template-rows:repeat(2,72px);gap:8px}
+.dpad .up{grid-column:2;grid-row:1}
+.dpad .left{grid-column:1;grid-row:2}
+.dpad .down{grid-column:2;grid-row:2}
+.dpad .right{grid-column:3;grid-row:2}
+.action-pad{display:grid;grid-template-columns:repeat(3,minmax(95px,1fr));gap:9px}
+.qkey{
+  border:1px solid rgba(45,247,255,.24);border-bottom-width:3px;border-radius:12px;
+  background:linear-gradient(180deg,#111c35,#08101f);color:white;cursor:pointer;
+  font:800 21px Orbitron,sans-serif;user-select:none;touch-action:none
+}
+.qkey small{display:block;margin-top:4px;font:600 8px Inter,sans-serif;color:#8494bb;letter-spacing:.05em;text-transform:uppercase}
+.qkey:active,.qkey.pressed{transform:translateY(2px);border-bottom-width:1px;background:rgba(45,247,255,.14);color:var(--cyan)}
+.qkey.action{min-height:72px;font-size:12px;padding:10px 14px}
+.input-test-line{
+  margin-top:18px;display:flex;align-items:center;justify-content:center;gap:9px;
+  color:#8393b8;font-size:11px
+}
+.input-test-line span{width:8px;height:8px;border-radius:50%;background:#596686}
+.input-test-line span.active{background:var(--green);box-shadow:0 0 16px rgba(99,255,176,.5)}
+@media(max-width:760px){
+  .quick-controls-head{display:block}
+  .quick-controls-head p{margin-top:12px}
+  .quick-pad{gap:20px}
+  .action-pad{grid-template-columns:1fr 1fr 1fr;width:100%}
+}
