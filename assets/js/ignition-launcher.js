@@ -359,7 +359,20 @@ bindQuickControls();
 
 fullscreenGame.addEventListener("click", async()=>{
   try{
-    if(gameFrame.requestFullscreen) await gameFrame.requestFullscreen();
+    const childWindow = gameFrame.contentWindow;
+    const childModule = childWindow && childWindow.Module;
+
+    // Prefer BoxedWine's own fullscreen path with resize enabled.
+    // This scales 640x480 to the largest 4:3 image that fits the display.
+    if(childModule && typeof childModule.requestFullscreen === "function"){
+      childModule.requestFullscreen(false, true);
+      return;
+    }
+
+    // Fallback while the runtime is still initializing.
+    if(gameFrame.requestFullscreen){
+      await gameFrame.requestFullscreen();
+    }
   }catch(error){
     diagnosticText.textContent = "No se pudo activar pantalla completa: " + error.message;
   }
