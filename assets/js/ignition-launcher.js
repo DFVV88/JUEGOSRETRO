@@ -292,6 +292,71 @@ gameFrame.addEventListener("load", ()=>{
   }
 });
 
+
+function dispatchGameKey(type, code, key, keyCode){
+  try{
+    const win=gameFrame.contentWindow;
+    if(!win) return false;
+
+    const event=new win.KeyboardEvent(type,{
+      code,
+      key,
+      bubbles:true,
+      cancelable:true
+    });
+
+    try{
+      Object.defineProperty(event,"keyCode",{get:()=>Number(keyCode)});
+      Object.defineProperty(event,"which",{get:()=>Number(keyCode)});
+    }catch(_){}
+
+    win.dispatchEvent(event);
+
+    const dot=document.querySelector("#inputTestDot");
+    const status=document.querySelector("#inputTestStatus");
+    if(dot) dot.classList.add("active");
+    if(status) status.textContent=`Enviado: ${code}`;
+
+    return true;
+  }catch(error){
+    const status=document.querySelector("#inputTestStatus");
+    if(status) status.textContent="No se pudo enviar la tecla: "+error.message;
+    return false;
+  }
+}
+
+function bindQuickControls(){
+  document.querySelectorAll(".qkey").forEach(button=>{
+    const code=button.dataset.code;
+    const key=button.dataset.key;
+    const keyCode=button.dataset.keycode;
+    let down=false;
+
+    const press=(event)=>{
+      event.preventDefault();
+      if(down) return;
+      down=true;
+      button.classList.add("pressed");
+      dispatchGameKey("keydown",code,key,keyCode);
+    };
+
+    const release=(event)=>{
+      if(event) event.preventDefault();
+      if(!down) return;
+      down=false;
+      button.classList.remove("pressed");
+      dispatchGameKey("keyup",code,key,keyCode);
+    };
+
+    button.addEventListener("pointerdown",press);
+    button.addEventListener("pointerup",release);
+    button.addEventListener("pointercancel",release);
+    button.addEventListener("pointerleave",release);
+  });
+}
+
+bindQuickControls();
+
 fullscreenGame.addEventListener("click", async()=>{
   try{
     if(gameFrame.requestFullscreen) await gameFrame.requestFullscreen();
