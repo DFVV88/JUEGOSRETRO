@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#050713">
+  <title>Ignition — JUEGOS RETRO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/ignition.css">
+</head>
+<body class="game-page">
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header class="topbar game-topbar">
+    <a class="brand" href="../">
+      <span class="brand-mark">JR</span>
+      <span class="brand-copy"><strong>JUEGOS RETRO</strong><small>PLAY THE PAST</small></span>
+    </a>
+    <a class="back-link" href="../">← Volver al catálogo</a>
+  </header>
+
+  <main class="game-shell">
+    <section class="game-heading">
+      <div>
+        <span class="kicker">WINDOWS 32-BIT // BOXEDWINE</span>
+        <h1>IGNITION</h1>
+        <p>1997 · Arcade Racing · DirectDraw</p>
+      </div>
+      <div class="compat-chip">
+        <span class="pulse-dot"></span>
+        EXPERIMENTAL
+      </div>
+    </section>
+
+    <section class="launcher-card" id="launcherCard">
+      <div class="launcher-copy">
+        <span class="launcher-step">01</span>
+        <div>
+          <h2>Conecta tu copia del juego</h2>
+          <p>
+            Selecciona el ZIP de Ignition que ya tienes. El archivo se guarda solamente
+            en el almacenamiento local de este navegador y no se sube a GitHub ni al servidor.
+          </p>
+        </div>
+      </div>
+
+      <div class="file-zone" id="fileZone">
+        <input id="gameFile" type="file" accept=".zip,application/zip" hidden>
+        <button class="button button-primary" id="chooseFile">Seleccionar ZIP de Ignition</button>
+        <p id="fileStatus">Buscando una copia guardada en este navegador…</p>
+      </div>
+
+      <div class="launcher-actions">
+        <button class="button button-primary launch-main" id="launchGame" disabled>JUGAR IGNITION</button>
+        <button class="button button-ghost" id="changeFile">Cambiar archivo</button>
+        <button class="button button-ghost danger" id="removeFile">Olvidar archivo</button>
+      </div>
+
+      <div class="privacy-note">
+        <strong>Privacidad:</strong>
+        <span>tu ZIP permanece en Chrome mediante IndexedDB. JUEGOS RETRO solo sirve el emulador.</span>
+      </div>
+    </section>
+
+    <section class="runtime-panel">
+      <div class="runtime-toolbar">
+        <div>
+          <span class="runtime-light" id="runtimeLight"></span>
+          <strong id="runtimeStatus">Comprobando BoxedWine…</strong>
+        </div>
+        <button id="fullscreenGame" class="button button-ghost" disabled>Pantalla completa</button>
+      </div>
+
+      <div class="game-stage" id="gameStage">
+        <div class="stage-placeholder" id="stagePlaceholder">
+          <div class="ignition-mark">IGN</div>
+          <h3>LISTO PARA ARRANCAR</h3>
+          <p>Selecciona tu ZIP y pulsa JUGAR IGNITION.</p>
+        </div>
+        <iframe
+          id="gameFrame"
+          title="Ignition ejecutándose con BoxedWine"
+          allow="autoplay; fullscreen; gamepad"
+          allowfullscreen
+          hidden></iframe>
+      </div>
+    </section>
+
+    <section class="tech-notes">
+      <article>
+        <span>ENGINE</span>
+        <strong>BoxedWine 26R1</strong>
+      </article>
+      <article>
+        <span>EXE</span>
+        <strong>Ign_d3d.exe</strong>
+      </article>
+      <article>
+        <span>VIDEO</span>
+        <strong>DirectDraw</strong>
+      </article>
+      <article>
+        <span>ARCHIVOS</span>
+        <strong>Solo locales</strong>
+      </article>
+    </section>
+
+    <details class="diagnostics">
+      <summary>Diagnóstico y solución de problemas</summary>
+      <div>
+        <p>Si el juego queda negro, abre la consola del navegador con F12 y revisa los mensajes de BoxedWine.</p>
+        <p>El launcher fuerza las DLL <code>winmm</code> y <code>ddraw</code> internas de Wine para evitar wrappers modernos incluidos en algunos repacks.</p>
+        <p id="diagnosticText"></p>
+      </div>
+    </details>
+  </main>
+
+  <script type="module" src="../assets/js/ignition-launcher.js"></script>
+</body>
+</html>
