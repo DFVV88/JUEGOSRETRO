@@ -91,6 +91,34 @@
       </div>
     </section>
 
+
+    <section class="controls-guide">
+      <div class="controls-guide-head">
+        <div>
+          <span class="kicker">CONTROLES</span>
+          <h2>Teclas de Ignition</h2>
+        </div>
+        <p>Puedes cambiarlas dentro del juego en <strong>Options → Player Options → Keyboard</strong>.</p>
+      </div>
+
+      <div class="key-grid">
+        <article><kbd>↑</kbd><span><strong>Acelerar</strong><small>Player 1</small></span></article>
+        <article><kbd>↓</kbd><span><strong>Frenar</strong><small>Player 1</small></span></article>
+        <article><kbd>←</kbd><span><strong>Girar izquierda</strong><small>Player 1</small></span></article>
+        <article><kbd>→</kbd><span><strong>Girar derecha</strong><small>Player 1</small></span></article>
+        <article><kbd>R Shift</kbd><span><strong>Boost / Nitro</strong><small>Player 1</small></span></article>
+        <article><kbd>'</kbd><span><strong>Vista trasera</strong><small>Player 1</small></span></article>
+        <article><kbd>/</kbd><span><strong>Subir marcha</strong><small>Manual</small></span></article>
+        <article><kbd>.</kbd><span><strong>Bajar marcha</strong><small>Manual</small></span></article>
+        <article><kbd>ESC</kbd><span><strong>Salir / volver</strong><small>Menús</small></span></article>
+      </div>
+
+      <div class="controls-tip">
+        <strong>Recomendado:</strong>
+        <span>empieza con caja automática. También puedes activar <em>Auto Acceleration</em> en Player Options para no mantener presionada la tecla de acelerar.</span>
+      </div>
+    </section>
+
     <section class="tech-notes">
       <article>
         <span>ENGINE</span>
@@ -114,7 +142,7 @@
       <summary>Diagnóstico y solución de problemas</summary>
       <div>
         <p>Si el juego queda negro, abre la consola del navegador con F12 y revisa los mensajes de BoxedWine.</p>
-        <p>El launcher fuerza las DLL <code>winmm</code> y <code>ddraw</code> internas de Wine para evitar wrappers modernos incluidos en algunos repacks.</p>
+        <p>El launcher usa <code>cnc-ddraw</code> de BoxedWine para DirectDraw y mantiene <code>winmm</code> interno de Wine para evitar dependencias modernas del repack.</p>
         <p id="diagnosticText"></p>
       </div>
     </details>
