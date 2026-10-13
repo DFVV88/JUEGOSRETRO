@@ -72,7 +72,7 @@
 
     pointerLock.checked=false;
     showConsole.checked=false;
-    resize.checked=false;
+    resize.checked=true;
 
     const output=document.getElementById("output");
     if(output) output.style.display="none";
@@ -130,8 +130,8 @@
 
     fullscreenBtn.addEventListener("click",()=>{
       if(window.Module && typeof window.Module.requestFullscreen==="function"){
-        window.Module.requestFullscreen(false,false);
-        setTimeout(focusGameInput,250);
+        window.Module.requestFullscreen(false,true);
+        setTimeout(focusGameInput,350);
       }
     });
 
