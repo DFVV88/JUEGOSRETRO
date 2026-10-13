@@ -1,0 +1,16 @@
+# Runtime descargado automáticamente
+runtime/
+.boxedwine-download/
+downloads/
+
+# Copia local del juego (no subir al repo público)
+IGNITION*.zip
+ignition.zip
+game/
+*.rar
+*.bin
+Setup.exe
+
+# Logs
+*.log
+server.pid
