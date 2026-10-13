@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#060816" />
+  <meta name="description" content="JUEGOS RETRO: juega clásicos gratuitos y legales directamente en tu navegador." />
+  <title>JUEGOS RETRO — Play the Past</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="JUEGOS RETRO - Inicio">
+      <span class="brand-mark">JR</span>
+      <span class="brand-copy">
+        <strong>JUEGOS RETRO</strong>
+        <small>PLAY THE PAST</small>
+      </span>
+    </a>
+
+    <nav class="nav">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#legal">Gratis y legal</a>
+    </nav>
+
+    <button class="icon-button" id="favoritesToggle" aria-label="Ver favoritos">
+      <span>★</span>
+      <b id="favoritesCount">0</b>
+    </button>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero">
+      <div class="hero-glow hero-glow-a"></div>
+      <div class="hero-glow hero-glow-b"></div>
+
+      <div class="hero-content">
+        <div class="eyebrow">
+          <span class="pulse-dot"></span>
+          RETRO GAMING // BROWSER NATIVE
+        </div>
+
+        <h1>
+          LOS CLÁSICOS<br />
+          <span>VUELVEN A ENCENDERSE.</span>
+        </h1>
+
+        <p>
+          Una plataforma para jugar títulos retro gratuitos y legalmente distribuibles
+          directamente en Google Chrome. Sin instalaciones complicadas.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button button-primary" href="#catalogo">Explorar juegos</a>
+          <a class="button button-ghost" href="#como-funciona">Cómo funciona</a>
+        </div>
+
+        <div class="hero-stats">
+          <article>
+            <strong id="statGames">0</strong>
+            <span>juegos</span>
+          </article>
+          <article>
+            <strong>100%</strong>
+            <span>navegador</span>
+          </article>
+          <article>
+            <strong>0</strong>
+            <span>instaladores</span>
+          </article>
+        </div>
+      </div>
+
+      <div class="hero-console">
+        <div class="console-shell">
+          <div class="console-top">
+            <span></span><span></span><span></span>
+            <p>JUEGOSRETRO://SYSTEM</p>
+          </div>
+          <div class="console-screen">
+            <div class="crt-grid"></div>
+            <div class="console-logo">JR</div>
+            <p class="console-line">&gt; iniciando memoria retro...</p>
+            <p class="console-line">&gt; cargando motores web...</p>
+            <p class="console-line success">&gt; sistema listo.</p>
+            <div class="loading-track"><span></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <span>✓ JUEGOS GRATUITOS Y LEGALES</span>
+      <span>✓ SIN ROMS PIRATAS</span>
+      <span>✓ CHROME / EDGE / FIREFOX</span>
+      <span>✓ JUEGA DESDE TU PC</span>
+    </section>
+
+    <section id="catalogo" class="section catalog-section">
+      <div class="section-heading">
+        <div>
+          <span class="kicker">CATÁLOGO</span>
+          <h2>Elige tu próxima partida</h2>
+        </div>
+        <p>Filtra por plataforma, busca por nombre o guarda tus favoritos.</p>
+      </div>
+
+      <div class="catalog-toolbar">
+        <label class="search-box">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="Buscar juego..." autocomplete="off" />
+        </label>
+
+        <div class="filters" id="platformFilters">
+          <button class="filter active" data-platform="all">Todos</button>
+          <button class="filter" data-platform="DOS">DOS</button>
+          <button class="filter" data-platform="Windows">Windows</button>
+          <button class="filter" data-platform="Browser">Browser</button>
+        </div>
+      </div>
+
+      <div id="catalogGrid" class="game-grid" aria-live="polite"></div>
+
+      <div id="emptyState" class="empty-state" hidden>
+        <strong>No encontramos coincidencias.</strong>
+        <span>Prueba con otro nombre o filtro.</span>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="section how-section">
+      <div class="section-heading">
+        <div>
+          <span class="kicker">TECNOLOGÍA</span>
+          <h2>¿Cómo corre un juego antiguo en Chrome?</h2>
+        </div>
+      </div>
+
+      <div class="how-grid">
+        <article class="step-card">
+          <span>01</span>
+          <h3>Seleccionas</h3>
+          <p>Eliges un juego desde el catálogo y pulsas JUGAR.</p>
+        </article>
+        <article class="step-card">
+          <span>02</span>
+          <h3>Cargamos el motor</h3>
+          <p>DOSBox, js-dos, BoxedWine u otro runtime compatible se inicia en WebAssembly.</p>
+        </article>
+        <article class="step-card">
+          <span>03</span>
+          <h3>Juegas</h3>
+          <p>El juego aparece en el navegador con teclado, audio y pantalla completa.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="legal" class="section legal-section">
+      <div class="legal-panel">
+        <div>
+          <span class="kicker">GRATIS Y LEGAL</span>
+          <h2>Retro sí. Piratería no.</h2>
+        </div>
+        <p>
+          JUEGOS RETRO solo publicará títulos open-source, freeware, shareware distribuible
+          o juegos para los que exista autorización de distribución. Los juegos comerciales
+          protegidos se integrarán únicamente cuando el usuario aporte legalmente sus propios
+          archivos o exista una licencia que lo permita.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand footer-brand" href="#inicio">
+      <span class="brand-mark">JR</span>
+      <span class="brand-copy"><strong>JUEGOS RETRO</strong><small>PLAY THE PAST</small></span>
+    </a>
+    <p>Proyecto experimental de preservación y acceso retro desde navegador.</p>
+    <span id="year"></span>
+  </footer>
+
+  <template id="gameCardTemplate">
+    <article class="game-card">
+      <div class="game-cover">
+        <div class="cover-noise"></div>
+        <span class="platform-badge"></span>
+        <button class="favorite" aria-label="Añadir a favoritos">☆</button>
+        <div class="cover-monogram"></div>
+        <span class="status-badge"></span>
+      </div>
+      <div class="game-info">
+        <div>
+          <h3></h3>
+          <p class="game-meta"></p>
+        </div>
+        <p class="game-description"></p>
+        <div class="game-actions">
+          <button class="play-button">JUGAR</button>
+          <button class="details-button">Detalles</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="assets/js/app.js" type="module"></script>
+</body>
+</html>
