@@ -15,9 +15,46 @@ const gameFrame = document.querySelector("#gameFrame");
 const stagePlaceholder = document.querySelector("#stagePlaceholder");
 const fullscreenGame = document.querySelector("#fullscreenGame");
 const diagnosticText = document.querySelector("#diagnosticText");
+const storageStatus = document.querySelector("#storageStatus");
 
 let gameReady = false;
 let runtimeReady = false;
+
+async function refreshStorageStatus(requestPersist = false){
+  if(!navigator.storage){
+    if(storageStatus) storageStatus.textContent = "Almacenamiento local disponible; modo persistente no compatible.";
+    return false;
+  }
+
+  try{
+    let persisted = navigator.storage.persisted ? await navigator.storage.persisted() : false;
+
+    if(requestPersist && !persisted && navigator.storage.persist){
+      persisted = await navigator.storage.persist();
+    }
+
+    let estimateText = "";
+    if(navigator.storage.estimate){
+      const estimate = await navigator.storage.estimate();
+      if(estimate.usage != null){
+        estimateText = ` · uso local ${formatBytes(estimate.usage)}`;
+      }
+    }
+
+    if(storageStatus){
+      storageStatus.textContent = persisted
+        ? `✓ Chrome protegió el archivo contra limpieza automática${estimateText}`
+        : `Guardado en Chrome${estimateText}. Evita incógnito y no borres los datos del sitio.`;
+      storageStatus.className = persisted ? "storage-status ready" : "storage-status";
+    }
+    return persisted;
+  }catch(error){
+    if(storageStatus){
+      storageStatus.textContent = "El ZIP seguirá guardado en Chrome mientras no borres los datos del sitio.";
+    }
+    return false;
+  }
+}
 
 function openDb(){
   return new Promise((resolve,reject)=>{
@@ -115,7 +152,7 @@ async function inspectStoredGame(){
       fileStatus.textContent = `✓ Ignition guardado localmente · ${record.name || "ignition.zip"} · ${formatBytes(record.blob.size)}`;
       fileStatus.className = "ready";
       chooseFile.textContent = "Reemplazar ZIP";
-      diagnosticText.textContent = `Archivo local: ${record.name || "ignition.zip"} (${formatBytes(record.blob.size)}).`;
+      diagnosticText.textContent = `Archivo local: ${record.name || "ignition.zip"} (${formatBytes(record.blob.size)}). No necesitas seleccionarlo nuevamente en este mismo Chrome.`;
     }else{
       gameReady = false;
       fileStatus.textContent = "No hay un ZIP de Ignition guardado en este navegador.";
@@ -169,6 +206,7 @@ async function handleFile(file){
   });
 
   await inspectStoredGame();
+  await refreshStorageStatus(true);
 }
 
 chooseFile.addEventListener("click",()=>gameFile.click());
@@ -196,6 +234,7 @@ removeFile.addEventListener("click", async()=>{
   stagePlaceholder.hidden=false;
   fullscreenGame.disabled=true;
   await inspectStoredGame();
+  await refreshStorageStatus(false);
 });
 
 launchGame.addEventListener("click", ()=>{
@@ -237,4 +276,4 @@ fullscreenGame.addEventListener("click", async()=>{
   }
 });
 
-await Promise.all([inspectStoredGame(), checkRuntime()]);
+await Promise.all([inspectStoredGame(), checkRuntime(), refreshStorageStatus(false)]);
