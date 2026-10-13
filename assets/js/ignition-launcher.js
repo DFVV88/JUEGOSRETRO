@@ -258,7 +258,7 @@ launchGame.addEventListener("click", ()=>{
   const appDir = "/home/username/.wine/dosdevices/c:/files";
   const runtimeUrl =
     `../runtime/boxedwine/boxedwine.html?${params.toString()}` +
-    `&ddrawOverride=%22${encodeURIComponent(appDir)}%22` +
+    `&ddrawOverride=%22${appDir}%22` +
     `&env=%22WINEDLLOVERRIDES:winmm=b%22`;
 
   stagePlaceholder.hidden=true;
