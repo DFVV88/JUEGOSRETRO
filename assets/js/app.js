@@ -9,7 +9,8 @@ const catalog = [
     statusText: "LISTO PARA PROBAR",
     monogram: "IGN",
     colors: ["#101c42", "#742f77", "#ff3bd4"],
-    description: "Carreras arcade isométricas. Usa tu copia local del juego y ejecútala en Chrome con BoxedWine.",\n    playUrl: "play/ignition.html"
+    description: "Carreras arcade isométricas. Usa tu copia local del juego y ejecútala en Chrome con BoxedWine.",
+    playUrl: "play/ignition.html"
   },
   {
     id: "freedoom",
