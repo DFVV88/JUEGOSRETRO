@@ -1,0 +1,128 @@
+name: Sync BoxedWine runtime to main
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/sync-boxedwine.yml"
+      - "BOXEDWINE_VERSION"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Read BoxedWine version
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="$(tr -d '[:space:]' < BOXEDWINE_VERSION)"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Download BoxedWine Web release
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="${{ steps.version.outputs.version }}"
+          URL="https://github.com/danoon2/Boxedwine/releases/download/${VERSION}.0/Boxedwine${VERSION}Web.zip"
+
+          rm -rf /tmp/boxedwine-release
+          mkdir -p /tmp/boxedwine-release
+
+          curl -L --fail --retry 3 --retry-delay 2 \
+            "$URL" \
+            -o /tmp/boxedwine-web.zip
+
+          unzip -q /tmp/boxedwine-web.zip -d /tmp/boxedwine-release
+
+          BW_HTML="$(find /tmp/boxedwine-release -type f -path '*/SingleThreaded/boxedwine.html' | head -n 1 || true)"
+          if [ -z "$BW_HTML" ]; then
+            BW_HTML="$(find /tmp/boxedwine-release -type f -name boxedwine.html | grep -v '/MultiThreaded' | head -n 1 || true)"
+          fi
+          test -n "$BW_HTML"
+
+          BW_DIR="$(dirname "$BW_HTML")"
+
+          rm -rf runtime/boxedwine
+          mkdir -p runtime/boxedwine
+          cp -a "$BW_DIR"/. runtime/boxedwine/
+
+          if [ ! -f runtime/boxedwine/boxedwine.zip ]; then
+            ROOT_ZIP="$(find /tmp/boxedwine-release -type f -name boxedwine.zip | head -n 1 || true)"
+            test -n "$ROOT_ZIP"
+            cp "$ROOT_ZIP" runtime/boxedwine/boxedwine.zip
+          fi
+
+          cp assets/js/boxedwine-bridge.js runtime/boxedwine/jr-bridge.js
+
+      - name: Inject JUEGOS RETRO bridge
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path("runtime/boxedwine/boxedwine.html")
+          html = p.read_text(encoding="utf-8", errors="replace")
+          bridge = '<script src="jr-bridge.js"></script>'
+          if bridge not in html:
+              needle = '<script src="boxedwine-shell.js"></script>'
+              if needle in html:
+                  html = html.replace(needle, bridge + "\n        " + needle, 1)
+              elif "</head>" in html:
+                  html = html.replace("</head>", "  " + bridge + "\n  </head>", 1)
+              else:
+                  html = bridge + "\n" + html
+          p.write_text(html, encoding="utf-8")
+          PY
+
+          cat > runtime/BOXEDWINE_SOURCE.md <<EOF
+          # BoxedWine runtime
+
+          Version: ${{ steps.version.outputs.version }}
+
+          Binary source:
+          https://github.com/danoon2/Boxedwine/releases/tag/${{ steps.version.outputs.version }}.0
+
+          Corresponding source:
+          https://github.com/danoon2/Boxedwine/tree/${{ steps.version.outputs.version }}.0
+
+          BoxedWine is distributed under GPL-2.0.
+          EOF
+
+      - name: Validate runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f runtime/boxedwine/boxedwine.html
+          test -f runtime/boxedwine/boxedwine.js
+          test -f runtime/boxedwine/boxedwine.wasm
+          test -f runtime/boxedwine/boxedwine.zip
+          test -f runtime/boxedwine/jr-bridge.js
+          grep -q "jr-bridge.js" runtime/boxedwine/boxedwine.html
+          du -sh runtime/boxedwine
+
+      - name: Commit runtime to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -f runtime/boxedwine runtime/BOXEDWINE_SOURCE.md
+
+          if git diff --cached --quiet; then
+            echo "BoxedWine runtime is already current."
+            exit 0
+          fi
+
+          git commit -m "chore: sync BoxedWine ${{ steps.version.outputs.version }} web runtime"
+          git push origin HEAD:main
