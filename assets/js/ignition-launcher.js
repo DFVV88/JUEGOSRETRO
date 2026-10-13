@@ -1,3 +1,5 @@
+await (window.jrIsolationReady || Promise.resolve());
+
 const DB_NAME = "juegosretro-assets";
 const DB_VERSION = 1;
 const STORE = "files";
@@ -16,6 +18,21 @@ const stagePlaceholder = document.querySelector("#stagePlaceholder");
 const fullscreenGame = document.querySelector("#fullscreenGame");
 const diagnosticText = document.querySelector("#diagnosticText");
 const storageStatus = document.querySelector("#storageStatus");
+const audioQualityStatus = document.querySelector("#audioQualityStatus");
+
+function updateAudioQualityStatus(){
+  if(!audioQualityStatus) return;
+
+  if(self.crossOriginIsolated && typeof SharedArrayBuffer !== "undefined"){
+    audioQualityStatus.textContent = "AudioWorklet listo";
+    audioQualityStatus.title = "Chrome tiene SharedArrayBuffer disponible; BoxedWine puede usar su backend de audio de alta calidad.";
+  }else{
+    audioQualityStatus.textContent = "SDL fallback";
+    audioQualityStatus.title = "El navegador no está aislado; BoxedWine usará su ruta SDL de compatibilidad.";
+  }
+}
+
+updateAudioQualityStatus();
 
 let gameReady = false;
 let runtimeReady = false;
@@ -272,6 +289,23 @@ gameFrame.addEventListener("load", ()=>{
   if(gameFrame.src && !gameFrame.src.endsWith("about:blank")){
     runtimeStatus.textContent="Ignition cargado en BoxedWine";
     runtimeLight.className="runtime-light ready";
+    updateAudioQualityStatus();
+
+    setTimeout(()=>{
+      try{
+        const module = gameFrame.contentWindow && gameFrame.contentWindow.Module;
+        const snapshot = module && module.boxedwineAudio && typeof module.boxedwineAudio.snapshot === "function"
+          ? module.boxedwineAudio.snapshot()
+          : null;
+        if(snapshot && audioQualityStatus){
+          const starvations = snapshot.starvationCount ?? snapshot.starvations ?? null;
+          audioQualityStatus.textContent = self.crossOriginIsolated ? "AudioWorklet activo" : "SDL fallback";
+          if(starvations != null){
+            audioQualityStatus.title = `Starvation de audio: ${starvations}`;
+          }
+        }
+      }catch(_){}
+    },3500);
 
     const focusInsideGame=()=>{
       try{
